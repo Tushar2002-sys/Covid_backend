@@ -1,0 +1,23 @@
+
+<div>
+  <a href="{% url 'admin_home' %}" class="btn btn-primary">Admin-Home</a>
+  <br>
+  <br>
+<form method="POST" action="{% url 'create_center' %}">
+  {% csrf_token %}
+
+
+  {{ form.center_name.label_tag }}{{ form.center_name }}
+  <br>
+  <br>
+  {{ form.start_hour.label_tag }} {{ form.start_hour }}
+  {{ form.start_minute.label_tag }} {{ form.start_minute }}
+  <br>
+  <br>
+  {{ form.end_hour.label_tag }} {{ form.end_hour }}
+  {{ form.end_minute.label_tag }} {{ form.end_minute }}
+  <br>
+  <br>
+  <button type="submit">Create Center</button>
+</form>
+</div>

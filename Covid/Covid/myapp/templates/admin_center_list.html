@@ -1,0 +1,21 @@
+<!-- center_list.html -->
+<h2>Center List</h2>
+<a href="{% url 'admin_home' %}" class="btn btn-primary">Admin-Home</a>
+<br>
+<br>
+<a href="{% url 'create_center' %}" class="add-button">Add Center</a>
+
+<ul class="center-list">
+    {% for center in centers %}
+        <li>
+            <span class="center-name">{{ center.name }}</span>
+            <span class="center-time">Start Time: {{ center.start_hour|stringformat:'02d' }}:{{ center.start_minute|stringformat:'02d' }} - End Time: {{ center.end_hour|stringformat:'02d' }}:{{ center.end_minute|stringformat:'02d' }}</span>
+            <form method="POST" action="{% url 'delete_center' center.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    {% empty %}
+        <li>No centers found.</li>
+    {% endfor %}
+</ul>

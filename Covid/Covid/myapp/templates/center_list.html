@@ -1,0 +1,44 @@
+<!-- center_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Center List</title>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+     {% if not bookable %}
+        <h1>Your booking</h1>
+        <ul>
+            <li>
+            <strong>{{ booking.center_name }}</strong>
+            <br>
+            Start Time: {{ booking.start_hour|stringformat:'02d' }}:{{ booking.start_minute|stringformat:'02d' }}
+            <br>
+            End Time: {{ booking.end_hour|stringformat:'02d' }}:{{ booking.end_minute|stringformat:'02d' }}
+            </li>
+        </ul>
+    {% endif %}
+    <h1>Center List</h1>
+    <ul>
+        {% for center in centers %}
+            <li>
+                <strong>{{ center.center_name }}</strong>
+                <br>
+                Start Time: {{ center.start_hour|stringformat:'02d' }}:{{ center.start_minute|stringformat:'02d' }}
+                <br>
+                End Time: {{ center.end_hour|stringformat:'02d' }}:{{ center.end_minute|stringformat:'02d' }}
+                {% if bookable %}
+                    <form method="POST" action="{% url 'book_center' center.id  %}">
+                    {% csrf_token %}
+                    <button type="submit">Book</button>
+                    </form>
+                {% endif %}
+
+
+            </li>
+        {% empty %}
+            <li>No centers available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
